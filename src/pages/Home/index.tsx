@@ -3,25 +3,32 @@ import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
+import { 
+    DivPublicidade,
+    DivSaibaMais,
+    Title,
+    Subtitle
+} from './styles';
+
 const Home: React.FC = () => {
 
     return (
         <>
             <Header />
 
-            <div>
-                <h2>Publicidade</h2>
+            <DivPublicidade>
+                <Title>Publicidade</Title>
                 <img src='https://image.shutterstock.com/image-illustration/cute-robot-hand-hello-gesture-600w-2099998849.jpg' alt='robô' />
-            </div>
+            </DivPublicidade>
 
-            <div>
-                <strong>Saiba Mais</strong>
+            <DivSaibaMais>
+                <Subtitle>Saiba Mais</Subtitle>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet condimentum justo, eu dignissim dui. Sed ac mauris eu quam consectetur iaculis. Morbi sed dictum elit. Sed euismod nisl non convallis feugiat. Cras facilisis est vitae risus dictum consectetur. Aenean fringilla augue vel sollicitudin faucibus. Nullam vel molestie mauris, sit amet maximus erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna eros, dignissim quis magna ut, feugiat tincidunt urna.
 
                     Cras nec magna eu ligula mollis cursus. Praesent euismod tincidunt pulvinar. Nulla non lacinia neque. Donec elementum risus vitae hendrerit rutrum. In luctus, nunc ac eleifend sodales, ante velit scelerisque dui, quis malesuada nisi quam quis dui. Aliquam id elit et libero mattis sodales. Mauris eget tortor id libero blandit posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce rutrum justo ut laoreet molestie.
                 </p>
-            </div>
+            </DivSaibaMais>
 
             <div>
                 <img src='https://image.shutterstock.com/image-illustration/cute-robot-hands-isolated-over-600w-2172013227.jpg' alt='robô 2' />
@@ -33,7 +40,7 @@ const Home: React.FC = () => {
             </div>
 
             <div>
-                <strong>Perguntas Frequentes</strong>
+                <Subtitle>Perguntas Frequentes</Subtitle>
                 <div>
                     <div>
                         <div>
