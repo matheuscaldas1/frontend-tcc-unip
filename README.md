@@ -5,7 +5,7 @@ Site para verificar a probabilidade da notícia ser falsa
 
 ## 🔨 Features
 
-- [X] Apresntação do projeto
+- [X] Apresentação do projeto
 - [X] Validação de notícias  
 - [X] Popular banco de dados
 
