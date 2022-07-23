@@ -1,45 +1,76 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {
+    Box,
+    Container,
+    Grid,
+    Link,
+    Typography
+} from '@mui/material';
+
+import { WhatsApp, Facebook, Instagram } from '@mui/icons-material';
 
 const Footer: React.FC = () => {
 
     return (
-        <>
-            <div>
-                <div>
-                    <h3>Fake detector</h3>
-                    <div>
-                        <strong>Redes sociais</strong>
-                        <div>
-                            <ul>
-                                <li>Whatsapp</li>
-                                <li>Twitter</li>
-                                <li>Facebook</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>Informações</strong>
-                            <div>
-                                <ul>
-                                    <li>
-                                        <Link to="/">Home</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/sobre">Sobre</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/servicos">Serviços</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <p>Fake Detector © Direitos reservados </p>
-            </div>
-        </>
+        <Box
+            px={{ xs: 3, sm: 10 }}
+            py={{ xs: 5, sm: 10 }}
+            bgcolor='text.secondary'
+            color='white'
+        >
+            <Container>
+                <Grid container spacing={5}>
+                    <Grid item xs={12} sm={4}>
+                        <Typography variant='h6'>Fake Detector</Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Box borderBottom={1}>Informações</Box>
+                        <Box>
+                            <Link href='/' color='inherit'>
+                                Home
+                            </Link>
+                        </Box>
+                        <Box>
+                            <Link href='/sobre' color='inherit'>
+                                Sobre
+                            </Link>
+                        </Box>
+                        <Box>
+                            <Link href='/servicos' color='inherit'>
+                                Serviços
+                            </Link>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <Box borderBottom={1}>Redes sociais</Box>
+                        <Grid container>
+                            <Box>
+                                <Link href='/' color='inherit'>
+                                    <WhatsApp />
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link href='/' color='inherit'>
+                                    <Facebook />
+                                </Link>
+                            </Box>
+                            <Box>
+                                <Link href='/' color='inherit'>
+                                    <Instagram />
+                                </Link>
+                            </Box>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Box
+                    textAlign='center'
+                    pt={{ xs: 5, sm: 10 }}
+                    pb={{ xs: 5, sm: 10 }}
+                >
+                    Fake Detector &reg; {new Date().getFullYear()}
+                </Box>
+            </Container>
+        </Box>
     )
 }
 

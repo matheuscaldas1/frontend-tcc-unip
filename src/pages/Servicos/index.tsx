@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
 import { useForm, Controller } from 'react-hook-form';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { 
@@ -17,11 +16,7 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-const useStyles = makeStyles((theme) => ({
-    form: {
-        width: '100%',
-    }
-}))
+import { useStyles } from './styles';
 
 const Servicos: React.FC = () => {
     const classes = useStyles();
@@ -37,9 +32,9 @@ return (
         <Header />
         
         <Box>
-            <Paper elevation={2}>
-                <Container component='main' maxWidth='xs'>
-                    <Typography component='h1' variant='h5'>
+            <Paper className={classes.paper}  elevation={2}>
+                <Container className={classes.mainContainer} component='main' maxWidth='xs'>
+                    <Typography component='h5' variant='h5'>
                         Realize sua Análise
                     </Typography>
 

@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+import {
+    AppBar,
+    Box,
+    Button,
+    Container,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography
+} from '@mui/material';
 
-import { CustomizedTypography } from './styles';
+import { useStyles } from './styles';
 
 const Header: React.FC = () => {
+    const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,14 +26,12 @@ const Header: React.FC = () => {
 
     return (
         <AppBar position='static'>
-            <Container>
-                <Toolbar disableGutters>
-                    <CustomizedTypography
-                        variant='h6'
-                    >
+            <Container maxWidth={false}>
+                <Toolbar className={classes.toolbar} disableGutters>
+                    <Typography className={classes.logo} component='a' href='/' variant='h5'>
                         Fake Detector
-                    </CustomizedTypography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                    </Typography>
+                    <Box>
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -61,16 +61,14 @@ const Header: React.FC = () => {
 
                     </Box>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box className={classes.boxDesktop}>
                         <Button
-                            onClick={handleCloseNavMenu}
                             href="/sobre"
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Sobre
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
                             href="/servicos"
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
