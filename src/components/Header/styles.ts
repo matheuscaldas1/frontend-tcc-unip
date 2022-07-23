@@ -1,14 +1,20 @@
-import { styled } from "@material-ui/styles";
-import {
-    Typography
-} from "@mui/material";
+import { makeStyles } from '@material-ui/styles';
 
-export const CustomizedTypography = styled(Typography)({
-    textDecoration: 'none',
-    mr: 2,
-    fontFamily: 'monospace',
-    fontWeight: 700,
-    letterSpacing: '.3rem',
-    color: 'inherit',
-    display: 'flex',
-});
+export const useStyles = makeStyles((theme) => ({
+    logo: {
+        color: 'inherit',
+        textDecoration: 'none',
+        letterSpacing: '.3rem',
+        fontWeight: 700,
+        fontFamily: 'monospace',
+    },
+    toolbar: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    boxDesktop: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    }
+}));

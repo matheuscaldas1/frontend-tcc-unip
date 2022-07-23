@@ -15,11 +15,19 @@ Site para verificar a probabilidade da notícia ser falsa
 - [X] Typescript
 - [X] Axios
 - [X] React router dom
-- [X] Styled Compontens
+- [X] Material UI
 
 ## Iniciando
 
-Após realizar o clone, rode o projeto em ambiente de desenvolvimento:
+Após realizar o clone, instale as dependências do projeto em ambiente de desenvolvimento:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+Depois, rode o projeto em ambiente de desenvolvimento:
 
 ```bash
 npm run dev

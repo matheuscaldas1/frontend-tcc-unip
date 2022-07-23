@@ -1,18 +1,16 @@
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/styles';
 
-
-export const Title = styled.h1`
-    color: red;
-`;
-
-export const Subtitle = styled.strong`
-    color: blue;
-`;
-
-export const DivPublicidade = styled.div`
-        background-color: #fdfdfd;
-`;
-
-export const DivSaibaMais = styled.div`
-        background-color: #fdfdfd;
-`;
+export const useStyles = makeStyles((theme) => ({
+    primaryCardContent: {
+        height: '300px',
+    },
+    primaryCardText: {
+        height: '60%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    secondCard: {
+        display: 'flex',
+    },
+}));
