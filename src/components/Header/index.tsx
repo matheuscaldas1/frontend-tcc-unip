@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     AppBar,
     Box,
@@ -13,6 +14,7 @@ import {
 import { useStyles } from './styles';
 
 const Header: React.FC = () => {
+    let navigate = useNavigate();
     const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -24,11 +26,20 @@ const Header: React.FC = () => {
         setAnchorElNav(null);
     };
 
+    const handleNavigation = (path: string) => {
+        navigate(path);
+    }
+
     return (
-        <AppBar position='static'>
+        <AppBar position='static' color='primary'>
             <Container maxWidth={false}>
                 <Toolbar className={classes.toolbar} disableGutters>
-                    <Typography className={classes.logo} component='a' href='/' variant='h5'>
+                    <Typography 
+                        className={classes.logo}
+                        component='button'
+                        onClick={() => handleNavigation('/')}
+                        variant='h5'
+                    >
                         Fake Detector
                     </Typography>
                     <Box>
@@ -63,13 +74,13 @@ const Header: React.FC = () => {
 
                     <Box className={classes.boxDesktop}>
                         <Button
-                            href="/sobre"
+                            onClick={() => handleNavigation('/sobre')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Sobre
                         </Button>
                         <Button
-                            href="/servicos"
+                            onClick={() => handleNavigation('/servicos')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Serviços

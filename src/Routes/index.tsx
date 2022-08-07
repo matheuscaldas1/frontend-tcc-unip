@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/material';
 import { globalTheme } from '../Theme/globalTheme';
 
@@ -26,3 +26,4 @@ const Rotas: React.FC = () => {
 }
 
 export default Rotas;
+    

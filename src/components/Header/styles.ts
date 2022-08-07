@@ -7,6 +7,9 @@ export const useStyles = makeStyles((theme) => ({
         letterSpacing: '.3rem',
         fontWeight: 700,
         fontFamily: 'monospace',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
     },
     toolbar: {
         width: '100%',
