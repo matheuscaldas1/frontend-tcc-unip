@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, FieldValue } from 'react-hook-form';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import toast, { Toaster } from 'react-hot-toast';
 import { 
     Box,
     Button,
@@ -27,6 +28,11 @@ const Servicos: React.FC = () => {
         setAnalysedType(event.target.value as string);
     };
 
+    const handleForm = (formData: any) => {
+        toast.success('Infos aparecem no console.log');
+        console.log(formData);
+    }
+
 return (
     <>
         <Header />
@@ -38,7 +44,7 @@ return (
                         Realize sua Análise
                     </Typography>
 
-                    <form className={classes.form} noValidate onSubmit={handleSubmit((data) => console.log(data))}>
+                    <form className={classes.form} noValidate onSubmit={handleSubmit((data) => handleForm(data))}>
                         <TextField 
                             variant='outlined'
                             margin='normal'
@@ -109,6 +115,7 @@ return (
                             Enviar
                         </Button>
                     </form>
+                    <Toaster />
                 </Container>
             </Paper>
         </Box>
