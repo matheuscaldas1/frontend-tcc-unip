@@ -16,11 +16,9 @@ import {
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-
-import { useStyles } from './styles';
+import '../../Theme/common.css';
 
 const Servicos: React.FC = () => {
-    const classes = useStyles();
     const { register, handleSubmit, control } = useForm();
     const [analysedType, setAnalysedType] = useState('');
 
@@ -38,13 +36,14 @@ return (
         <Header />
         
         <Box>
-            <Paper className={classes.paper}  elevation={2}>
-                <Container className={classes.mainContainer} component='main' maxWidth='xs'>
+            <Paper elevation={2} sx={{height: '100vh',
+        padding: '24px',}} >
+                <Container sx={{ height: '100%'}} component='main' maxWidth='xs'>
                     <Typography component='h5' variant='h5'>
                         Realize sua Análise
                     </Typography>
 
-                    <form className={classes.form} noValidate onSubmit={handleSubmit((data) => handleForm(data))}>
+                    <form className='servico-form' noValidate onSubmit={handleSubmit((data) => handleForm(data))}>
                         <TextField 
                             variant='outlined'
                             margin='normal'

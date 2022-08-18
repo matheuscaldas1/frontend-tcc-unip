@@ -2,10 +2,8 @@ import React from 'react';
 import {
     Box,
     Card,
-    CardActionArea,
     CardContent,
     CardMedia,
-    Paper,
     Typography,
 } from '@mui/material';
 
@@ -13,10 +11,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Perguntas from '../../components/Accordion';
 
-import { useStyles } from './styles';
-
 const Home: React.FC = () => {
-    const classes = useStyles();
 
     return (
         <>
@@ -29,20 +24,27 @@ const Home: React.FC = () => {
                     image='https://image.shutterstock.com/image-illustration/cute-robot-hand-hello-gesture-600w-2099998849.jpg'
                     alt='robo1'
                 />
-                <CardContent className={classes.primaryCardContent}>
+                <CardContent sx={{
+                    height: '300px',
+                }}>
                     <Typography
                         gutterBottom
                         variant="h4"
                         component="div"
                         textAlign='center'
                     >
-                       IA Detectora de Fake news
+                        IA Detectora de Fake news
                     </Typography>
                     <Typography
-                        className={classes.primaryCardText}
                         variant='body2'
                         textAlign='center'
                         paragraph
+                        sx={{
+                            height: '60%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
                     >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet condimentum justo, eu dignissim dui. Sed ac mauris eu quam consectetur iaculis. Morbi sed dictum elit. Sed euismod nisl non convallis feugiat. Cras facilisis est vitae risus dictum consectetur. Aenean fringilla augue vel sollicitudin faucibus. Nullam vel molestie mauris, sit amet maximus erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna eros, dignissim quis magna ut, feugiat tincidunt urna.
 
@@ -52,7 +54,7 @@ const Home: React.FC = () => {
                 </CardContent>
             </Card>
 
-            <Card  className={classes.secondCard} elevation={0} square>
+            <Card sx={{ display: 'flex', }} elevation={0} square>
                 <CardMedia
                     component='img'
                     height='600'

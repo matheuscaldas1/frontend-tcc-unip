@@ -9,12 +9,9 @@ import {
 
 import { ExpandMore } from '@mui/icons-material';
 
-import { useStyles } from './styles';
-
 const Perguntas: React.FC = () => {
-    const classes = useStyles();
     return (
-        <div className={classes.mainDiv}>
+        <Box sx={{ margin: '24px 0 40px 0' }}>
             <Accordion square={true}>
                 <AccordionSummary
                     expandIcon={<ExpandMore />}
@@ -60,7 +57,7 @@ const Perguntas: React.FC = () => {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-        </div>
+        </Box>
     );
 }
 
