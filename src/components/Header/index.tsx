@@ -11,11 +11,8 @@ import {
     Typography
 } from '@mui/material';
 
-import { useStyles } from './styles';
-
 const Header: React.FC = () => {
     let navigate = useNavigate();
-    const classes = useStyles();
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -33,12 +30,25 @@ const Header: React.FC = () => {
     return (
         <AppBar position='static' color='primary'>
             <Container maxWidth={false}>
-                <Toolbar className={classes.toolbar} disableGutters>
-                    <Typography 
-                        className={classes.logo}
+                <Toolbar disableGutters sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}>
+                    <Typography
                         component='button'
                         onClick={() => handleNavigation('/')}
                         variant='h5'
+                        sx={{
+                            color: 'white',
+                            textDecoration: 'none',
+                            letterSpacing: '.3rem',
+                            fontWeight: 700,
+                            fontFamily: 'Roboto',
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: 'pointer',
+                        }}
                     >
                         Fake Detector
                     </Typography>
@@ -72,7 +82,10 @@ const Header: React.FC = () => {
 
                     </Box>
 
-                    <Box className={classes.boxDesktop}>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                    }}>
                         <Button
                             onClick={() => handleNavigation('/sobre')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
