@@ -30,11 +30,11 @@ const Footer: React.FC = () => {
                                 Home
                             </Link>
                         </Box>
-                        <Box>
+                        {/* <Box>
                             <Link href='/sobre' color='inherit'>
                                 Sobre
                             </Link>
-                        </Box>
+                        </Box> */}
                         <Box>
                             <Link href='/servicos' color='inherit'>
                                 Serviços
