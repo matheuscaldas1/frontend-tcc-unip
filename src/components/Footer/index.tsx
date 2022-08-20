@@ -15,13 +15,13 @@ const Footer: React.FC = () => {
         <Box
             px={{ xs: 3, sm: 10 }}
             py={{ xs: 5, sm: 10 }}
-            bgcolor='text.secondary'
+            bgcolor='#111111'
             color='white'
         >
             <Container>
                 <Grid container spacing={5}>
                     <Grid item xs={12} sm={4}>
-                        <Typography variant='h6'>Fake Detector</Typography>
+                        <Typography variant='h6'>Verifato</Typography>
                     </Grid>
                     <Grid item xs={12} sm={4}>
                         <Box borderBottom={1}>Informações</Box>
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
                     pt={{ xs: 5, sm: 10 }}
                     pb={{ xs: 5, sm: 10 }}
                 >
-                    Fake Detector &reg; {new Date().getFullYear()}
+                    Verifato &reg; {new Date().getFullYear()}
                 </Box>
             </Container>
         </Box>
