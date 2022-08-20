@@ -28,7 +28,9 @@ const Header: React.FC = () => {
     }
 
     return (
-        <AppBar position='static' color='primary'>
+        <AppBar position='static' sx={{
+            backgroundColor: '#111111'
+        }}>
             <Container maxWidth={false}>
                 <Toolbar disableGutters sx={{
                     width: '100%',
@@ -50,7 +52,7 @@ const Header: React.FC = () => {
                             cursor: 'pointer',
                         }}
                     >
-                        Fake Detector
+                        Verifato
                     </Typography>
                     <Box>
                         <Menu

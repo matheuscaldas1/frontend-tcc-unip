@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { useForm, Controller, FieldValue } from 'react-hook-form';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
-import { 
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker'
+import {
     Box,
     Button,
     Container,
@@ -10,9 +14,11 @@ import {
     InputLabel,
     MenuItem,
     Paper,
+    Stack,
     TextField,
-    Typography
- } from '@mui/material';
+    Typography,
+    useMediaQuery
+} from '@mui/material';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -21,6 +27,8 @@ import '../../Theme/common.css';
 const Servicos: React.FC = () => {
     const { register, handleSubmit, control } = useForm();
     const [analysedType, setAnalysedType] = useState('');
+    const [dateValue, setDateValue] = useState<Date | null>();
+    const desktop = useMediaQuery('(min-width:600px)');
 
     const handleAnalyzedTypeChange = (event: SelectChangeEvent) => {
         setAnalysedType(event.target.value as string);
@@ -31,97 +39,123 @@ const Servicos: React.FC = () => {
         console.log(formData);
     }
 
-return (
-    <>
-        <Header />
-        
-        <Box>
-            <Paper elevation={2} sx={{height: '100vh',
-        padding: '24px',}} >
-                <Container sx={{ height: '100%'}} component='main' maxWidth='xs'>
-                    <Typography component='h5' variant='h5'>
-                        Realize sua Análise
-                    </Typography>
+    const handleDateChange = (newValue: Date | null) => {
+        setDateValue(newValue);
+    };
 
-                    <form className='servico-form' noValidate onSubmit={handleSubmit((data) => handleForm(data))}>
-                        <TextField 
-                            variant='outlined'
-                            margin='normal'
-                            {...register('titulo', {
-                                required: 'Required',
-                            })}
-                            fullWidth
-                            id='titulo'
-                            label='Título'
-                            name='titulo'
-                        />
+    return (
+        <>
+            <Header />
 
-                        <TextField 
-                            variant='outlined'
-                            margin='normal'
-                            {...register('link', {
-                                required: 'Required',
-                            })}
-                            fullWidth
-                            id='link'
-                            label='Link da Notícia'
-                            name='link'
-                        />
-
-                        <Typography component='p'>
-                            Aqui vai vir a data
+            <Box>
+                <Paper elevation={2} sx={{
+                    height: '100vh',
+                    minHeight: '800px',
+                    padding: '24px',
+                }} >
+                    <Container sx={{ height: '100%' }} component='main' maxWidth='xs'>
+                        <Typography component='h5' variant='h5'>
+                            Realize sua Análise
                         </Typography>
 
-                        <TextField 
-                            variant='outlined'
-                            margin='normal'
-                            multiline
-                            minRows={8}
-                            {...register('texto', {
-                                required: 'Required',
-                            })}
-                            fullWidth
-                            id='texto'
-                            label='Texto da Notícia'
-                            name='texto'
-                        />
+                        <form className='servico-form' noValidate onSubmit={handleSubmit((data) => handleForm(data))}>
+                            <Stack spacing={6}>
+                                <TextField
+                                    variant='outlined'
+                                    margin='normal'
+                                    {...register('titulo', {
+                                        required: 'Required',
+                                    })}
+                                    fullWidth
+                                    id='titulo'
+                                    label='Título'
+                                    name='titulo'
+                                />
 
-                        <FormControl fullWidth>
-                            <InputLabel id='tipo-de-analise'>Tipo de análise</InputLabel>
-                            <Select
-                                labelId='tipo-de-analise'
-                                id='tipo-analise'
-                                value={analysedType}
-                                label="Tipo de análise"
-                                {...register('tipo-analise', {
-                                    required: 'Required',
-                                })}
-                                onChange={handleAnalyzedTypeChange}
-                                
-                            >
-                                <MenuItem value='Bert'>Bert</MenuItem>
-                                <MenuItem value='BubbleSort'>BubbleSort</MenuItem>
-                                <MenuItem value='QuickSort'>QuickSort</MenuItem>
-                            </Select>
-                        </FormControl>
+                                <TextField
+                                    variant='outlined'
+                                    margin='normal'
+                                    {...register('link', {
+                                        required: 'Required',
+                                    })}
+                                    fullWidth
+                                    id='link'
+                                    label='Link da Notícia'
+                                    name='link'
+                                />
 
-                        <Button
-                            type='submit'
-                            fullWidth
-                            variant='contained'
-                            color='primary'
-                        >
-                            Enviar
-                        </Button>
-                    </form>
-                    <Toaster />
-                </Container>
-            </Paper>
-        </Box>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    {desktop
+                                        ? <DesktopDatePicker
+                                            label='Data da Notícia'
+                                            inputFormat='dd/MM/yyyy'
+                                            {...register('data-noticia')}
+                                            value={dateValue}
+                                            onChange={handleDateChange}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
 
-        <Footer />
-    </>
-)
+                                        : <MobileDatePicker
+                                            label='Data da Notícia'
+                                            inputFormat='dd/MM/yyyy'
+                                            {...register('data-noticia')}
+                                            value={dateValue}
+                                            onChange={handleDateChange}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />}
+                                </LocalizationProvider>
+
+                                <TextField
+                                    variant='outlined'
+                                    margin='normal'
+                                    multiline
+                                    minRows={8}
+                                    {...register('texto', {
+                                        required: 'Required',
+                                    })}
+                                    fullWidth
+                                    id='texto'
+                                    label='Texto da Notícia'
+                                    name='texto'
+                                />
+
+                                <FormControl fullWidth>
+                                    <InputLabel id='tipo-de-analise'>Tipo de análise</InputLabel>
+                                    <Select
+                                        labelId='tipo-de-analise'
+                                        id='tipo-analise'
+                                        value={analysedType}
+                                        label="Tipo de análise"
+                                        {...register('tipo-analise', {
+                                            required: 'Required',
+                                        })}
+                                        onChange={handleAnalyzedTypeChange}
+
+                                    >
+                                        <MenuItem value='Bert'>Bert</MenuItem>
+                                        <MenuItem value='BubbleSort'>BubbleSort</MenuItem>
+                                        <MenuItem value='QuickSort'>QuickSort</MenuItem>
+                                    </Select>
+                                </FormControl>
+
+                                <Button
+                                    type='submit'
+                                    fullWidth
+                                    variant='contained'
+                                    color='primary'
+                                >
+                                    Enviar
+                                </Button>
+                            </Stack>
+                        </form>
+                        <Toaster />
+                    </Container>
+                </Paper>
+            </Box>
+
+            <Footer />
+        </>
+    )
 }
 
 export default Servicos;
