@@ -88,12 +88,12 @@ const Header: React.FC = () => {
                         display: 'flex',
                         justifyContent: 'flex-end',
                     }}>
-                        <Button
+                        {/* <Button
                             onClick={() => handleNavigation('/sobre')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             Sobre
-                        </Button>
+                        </Button> */}
                         <Button
                             onClick={() => handleNavigation('/servicos')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
