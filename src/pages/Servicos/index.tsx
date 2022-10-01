@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller, FieldValue } from 'react-hook-form';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
@@ -7,8 +7,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker'
 import {
+    Backdrop,
     Box,
     Button,
+    CircularProgress,
     Container,
     FormControl,
     InputLabel,
@@ -22,25 +24,42 @@ import {
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ModalResultado from '../../components/Modal';
 import '../../Theme/common.css';
 
 const Servicos: React.FC = () => {
     const { register, handleSubmit, control } = useForm();
     const [analysedType, setAnalysedType] = useState('');
     const [dateValue, setDateValue] = useState<Date | null>();
+    const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const desktop = useMediaQuery('(min-width:600px)');
+
+    useEffect(() => {
+        if (loading === true) {
+            setTimeout(handleLoading, 5000);
+        }
+    }, [loading]);
 
     const handleAnalyzedTypeChange = (event: SelectChangeEvent) => {
         setAnalysedType(event.target.value as string);
     };
 
     const handleForm = (formData: any) => {
-        toast.success('Infos aparecem no console.log');
+        setLoading(true);
         console.log(formData);
     }
 
     const handleDateChange = (newValue: Date | null) => {
         setDateValue(newValue);
+    };
+
+    const handleLoading = () => {
+        console.log(showModal)
+       return (
+        setLoading(false),
+        setShowModal(!showModal)
+       ); 
     };
 
     return (
@@ -146,12 +165,19 @@ const Servicos: React.FC = () => {
                                 >
                                     Enviar
                                 </Button>
+                                <Backdrop
+                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, margin: '0 !important'}}
+                                    open={loading}
+                                >
+                                    <CircularProgress color="inherit" />
+                                </Backdrop>
                             </Stack>
                         </form>
                         <Toaster />
                     </Container>
                 </Paper>
             </Box>
+            <ModalResultado show={showModal} handleShow={handleLoading} />
 
             <Footer />
         </>
