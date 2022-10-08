@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller, FieldValue } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import toast, { Toaster } from 'react-hot-toast';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -25,10 +27,29 @@ import {
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ModalResultado from '../../components/Modal';
+import api from '../../services/api';
 import '../../Theme/common.css';
 
+type IFormInputs = {
+    titulo: string,
+    link: string,
+    dataNoticia: string,
+    texto: string,
+    tipoAnalise: string
+}
+
+const schema = yup.object({
+    titulo: yup.string().max(100, "Titulo não pode ultrapassar o limite de 100 caracteres").required("Título é obrigatório"),
+    link: yup.string().max(100, "Link não pode ultrapassar o limite de 100 caracteres").required("Link é obrigatório"),
+    dataNoticia: yup.string().required(),
+    texto: yup.string().min(100, "O texto precisa ter no mínimo 100 caracteres").max(2500, "O texto da notícia não pode ultrapassar 2500 caracteres").required("Texto é obrigatório"),
+    tipoAnalise: yup.string().required("Selecione uma análise"),
+}).required();
+
 const Servicos: React.FC = () => {
-    const { register, handleSubmit, control } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
+        resolver: yupResolver(schema)
+    });
     const [analysedType, setAnalysedType] = useState('');
     const [dateValue, setDateValue] = useState<Date | null>();
     const [loading, setLoading] = useState(false);
@@ -45,9 +66,16 @@ const Servicos: React.FC = () => {
         setAnalysedType(event.target.value as string);
     };
 
-    const handleForm = (formData: any) => {
+    const handleForm = async (formData: any) => {
         setLoading(true);
         console.log(formData);
+        await api.get('/desinformation')
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error.message);
+            })
     }
 
     const handleDateChange = (newValue: Date | null) => {
@@ -82,25 +110,23 @@ const Servicos: React.FC = () => {
                                 <TextField
                                     variant='outlined'
                                     margin='normal'
-                                    {...register('titulo', {
-                                        required: 'Required',
-                                    })}
+                                    {...register('titulo')}
                                     fullWidth
                                     id='titulo'
-                                    label='Título'
+                                    label={errors.titulo ? errors.titulo.message : 'Título'}
                                     name='titulo'
+                                    error={errors.titulo ? true : false}
                                 />
 
                                 <TextField
                                     variant='outlined'
                                     margin='normal'
-                                    {...register('link', {
-                                        required: 'Required',
-                                    })}
+                                    {...register('link')}
                                     fullWidth
                                     id='link'
-                                    label='Link da Notícia'
+                                    label={errors.link ? errors.link.message : 'Link da Notícia'}
                                     name='link'
+                                    error={errors.link ? true : false}
                                 />
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -108,7 +134,7 @@ const Servicos: React.FC = () => {
                                         ? <DesktopDatePicker
                                             label='Data da Notícia'
                                             inputFormat='dd/MM/yyyy'
-                                            {...register('data-noticia')}
+                                            {...register('dataNoticia')}
                                             value={dateValue}
                                             onChange={handleDateChange}
                                             renderInput={(params) => <TextField {...params} />}
@@ -117,7 +143,7 @@ const Servicos: React.FC = () => {
                                         : <MobileDatePicker
                                             label='Data da Notícia'
                                             inputFormat='dd/MM/yyyy'
-                                            {...register('data-noticia')}
+                                            {...register('dataNoticia')}
                                             value={dateValue}
                                             onChange={handleDateChange}
                                             renderInput={(params) => <TextField {...params} />}
@@ -129,13 +155,12 @@ const Servicos: React.FC = () => {
                                     margin='normal'
                                     multiline
                                     minRows={8}
-                                    {...register('texto', {
-                                        required: 'Required',
-                                    })}
+                                    {...register('texto')}
                                     fullWidth
                                     id='texto'
-                                    label='Texto da Notícia'
+                                    label={errors.texto ? errors.texto.message : 'Texto da Notícia'}
                                     name='texto'
+                                    error={errors.texto ? true : false}
                                 />
 
                                 <FormControl fullWidth>
@@ -144,11 +169,10 @@ const Servicos: React.FC = () => {
                                         labelId='tipo-de-analise'
                                         id='tipo-analise'
                                         value={analysedType}
-                                        label="Tipo de análise"
-                                        {...register('tipo-analise', {
-                                            required: 'Required',
-                                        })}
+                                        label={errors.tipoAnalise ? errors.tipoAnalise.message : "Tipo de análise"}
+                                        {...register('tipoAnalise')}
                                         onChange={handleAnalyzedTypeChange}
+                                        error={errors.tipoAnalise ? true : false}
 
                                     >
                                         <MenuItem value='Bert'>Bert</MenuItem>
