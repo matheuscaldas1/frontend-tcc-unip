@@ -66,15 +66,23 @@ const Servicos: React.FC = () => {
         setAnalysedType(event.target.value as string);
     };
 
-    const handleForm = async (formData: any) => {
+    const handleForm = async (formData: IFormInputs) => {
         setLoading(true);
         console.log(formData);
-        await api.get('/desinformation')
+        await api.post('/disinformation//', {
+            "key": "",
+            "link": formData.link,
+            "text": '@verifato ' + formData.texto,
+            "title": formData.titulo,
+            "choice": formData.tipoAnalise,
+            "date": '2022-10-09',
+            "user": null
+        })
             .then(response => {
-                console.log(response);
+                console.log('essa é a resposta', response.data);
             })
             .catch(error => {
-                console.error(error.message);
+                console.error('deu esse erro:', error.message);
             })
     }
 
