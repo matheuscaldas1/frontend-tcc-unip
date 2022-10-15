@@ -4,26 +4,19 @@ import { Pie } from 'react-chartjs-2';
 import {
     Box,
     Modal,
-    Typography
+    Typography,
+    useMediaQuery
 } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 type ModalResultadoProps = {
     show: boolean,
-    handleShow: () => void,
+    handleShow: (error: boolean) => void,
+    probabilty: number,
+    linksRelacionados: string[],
+    temas: string[]
 }
 
 type ChartDataProps = {
@@ -37,7 +30,9 @@ type ChartDataProps = {
     }[],
 }
 
-const ModalResultado: React.FC<ModalResultadoProps> = ({ show, handleShow }) => {
+const ModalResultado: React.FC<ModalResultadoProps> = ({ 
+    show, handleShow, probabilty, linksRelacionados, temas  
+}) => {
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
     const chartData: ChartDataProps = {
@@ -45,7 +40,7 @@ const ModalResultado: React.FC<ModalResultadoProps> = ({ show, handleShow }) => 
         datasets: [
             {
                 label: 'Probabilidade',
-                data: [60, 40],
+                data: [1 - probabilty, probabilty],
                 backgroundColor: [
                     'rgb(94, 226, 84)',
                     'rgb(238, 81, 81)',
@@ -66,6 +61,21 @@ const ModalResultado: React.FC<ModalResultadoProps> = ({ show, handleShow }) => 
             }
         ],
     }
+    const desktop = useMediaQuery('(min-width:600px)');
+
+
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth: 400,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        borderRadius: '4px',
+        p: 4,
+        // overflow: 'scroll'
+    };
 
     useEffect(() => {
         if (show) {
@@ -82,10 +92,51 @@ const ModalResultado: React.FC<ModalResultadoProps> = ({ show, handleShow }) => 
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography id="modal-modal-title" variant="h5" component="h2">
                         Resultados
                     </Typography>
-                    <Pie data={chartData} />
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        margin: '8px'
+                    }}>
+                        <Box sx={{
+                            width: '300px',
+                        }}>
+                            <Pie data={chartData} />
+                        </Box>
+                    </Box>
+                    <Box>
+                        <Typography variant="h6" component="h2" sx={{ margin: '8px 0' }}>
+                            Temas da notícia: 
+                        </Typography>
+                        {temas.map(tema => (
+                            <Typography component="p" key={tema}>- {tema}</Typography>
+                        ))}
+                    </Box>
+
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                        <Typography variant="h6" component="h2" sx={{ margin: '8px 0' }}>
+                            Links relacionados:
+                        </Typography>
+                        {linksRelacionados.map(link => (
+                            <Typography key={link} component="a" href={link}
+                            target="_blank"
+                            sx={{
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                width: '40ch',
+                                whiteSpace: 'nowrap',
+                                margin: '4px 0'
+                            }}>
+                                {link}
+                            </Typography>
+                        ))}
+                    </Box>
                 </Box>
             </Modal>
         </div>
